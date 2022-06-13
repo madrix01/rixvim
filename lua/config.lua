@@ -4,3 +4,4 @@ vim.opt.softtabstop = 2
 vim.opt.number = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false
+

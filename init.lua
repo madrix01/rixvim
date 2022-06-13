@@ -17,3 +17,4 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('nvim-autopairs').setup{}
+require('bufferline').setup{}

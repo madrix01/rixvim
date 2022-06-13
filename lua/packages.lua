@@ -32,4 +32,11 @@ require('packer').startup(function()
 
     -- coc nvim 
     use {'neoclide/coc.nvim', branch = 'release'}
+
+    -- bufferline 
+    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+
+    -- markdown preview
+    use {"ellisonleao/glow.nvim", branch = 'main'}
+
 end)
