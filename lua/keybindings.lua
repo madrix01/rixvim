@@ -4,6 +4,10 @@ map('n', "<C-p>", function ()
   require("telescope.builtin").find_files()
 end)
 
+map('n', "<Space>g", function ()
+  require("telescope.builtin").live_grep()
+end)
+
 map("n", "<C-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer tab" })
 map("n", "<C-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer tab"})
 map("n", "<C-n>", "<cmd>NvimTreeToggle<cr>", {desc = "Open file tree"})
