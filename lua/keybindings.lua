@@ -1,6 +1,6 @@
 local map = vim.keymap.set
 
-map('n', "<C-p>", function ()
+map('n', "<Space>f", function ()
   require("telescope.builtin").find_files()
 end)
 
@@ -13,6 +13,9 @@ map("n", "<C-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer tab"})
 map("n", "<C-n>", "<cmd>NvimTreeToggle<cr>", {desc = "Open file tree"})
 map("n", "<C-d>", "<cmd>bdelete<cr>", {desc = "Delete current buffer"})
 map({"n", "i", "v"}, "<C-t>", "<cmd>ToggleTerm<cr>", {desc = "Open terminal"})
+map("n", "ww", "<cmd>w<cr>", {desc="Save current buffer"})
+map("n", "wq", "<cmd>wq<cr>", {desc="Save and quit current buffer"})
+map("n", "qq", "<cmd>q<cr>", {desc="Quit current buffer"})
 
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}

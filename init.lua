@@ -10,6 +10,7 @@ end
 require('packages')
 require('keybindings')
 require('config')
+require('plugins.catppuccin')
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
 --
@@ -37,7 +38,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
--- [[ Highlight on yank ]]
+-- [[ Highlight on rank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -93,19 +94,6 @@ require('telescope').setup {
         },
     },
 }
-
--- setup catppuccin
-require('catppuccin').setup({
-    flavour = 'macchiato',
-    integration = {
-        cmp = true,
-        gitsigns = true,
-        nvimtree = true,
-        telescope = true,
-        notify = false,
-        mini = false,
-    }
-})
 
 -- Startup screen
 require 'alpha'.setup(require 'alpha.themes.startify'.config)
