@@ -105,6 +105,9 @@ require('bufferline').setup {}
 
 require("nvim-autopairs").setup {}
 
+-- setup transparent nvim
+require("transparent").setup {}
+
 -- setup go
 require("go").setup()
 require("go.format").goimport() -- goimport + gofmt
@@ -145,9 +148,12 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'markdown_inline' },
 
-    highlight = { enable = true },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
         enable = true,
@@ -266,13 +272,6 @@ local servers = {
     -- pyright = {},
     -- rust_analyzer = {},
     -- tsserver = {},
-
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    },
 }
 
 -- Setup alpha configuration

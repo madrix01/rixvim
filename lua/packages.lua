@@ -53,12 +53,12 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   -- Bufferline
-  use {'akinsho/bufferline.nvim', tag="v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+  use {'akinsho/bufferline.nvim', tag="v2.*", requires = 'nvim-tree/nvim-web-devicons'}
   
   -- startup page
   use {
     'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'nvim-tree/nvim-web-devicons' },
     config = function ()
     require'alpha'.setup(require'alpha.themes.startify'.config)
       end
@@ -88,10 +88,16 @@ require('packer').startup(function(use)
     config = function() require("toggleterm").setup() end
   }
 
-  -- git signs 
+  -- transparent nvim 
   use {
-    'lewis6991/gitsigns.nvim',
+    'xiyaowong/transparent.nvim',
   }
+
+  -- kanagawa theme
+  use {
+    'rebelot/kanagawa.nvim',
+  }
+
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
