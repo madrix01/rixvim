@@ -1,13 +1,6 @@
 local catppuccin = require("catppuccin")
 
 catppuccin.setup({
-  color_overrides = {
-      mocha = {
-          base = "#000000",
-          mantle = "#000000",
-          crust = "#000000",
-      },
-  },
   dim_inactive = {
     enabled = true,
     shade = "dark",
@@ -94,4 +87,4 @@ catppuccin.setup({
     fidget = false,
   },
 })
-vim.cmd([[colorscheme catppuccin-mocha]])
+vim.cmd([[colorscheme kanagawa]])

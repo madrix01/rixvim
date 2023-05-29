@@ -1,15 +1,15 @@
 local map = vim.keymap.set
 
 map('n', "<Space>f", function ()
-  require("telescope.builtin").find_files()
+  require("telescope.builtin").find_files({hidden = true, no_ignore = true})
 end)
 
 map('n', "<Space>g", function ()
   require("telescope.builtin").live_grep()
 end)
 
-map("n", "<C-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer tab" })
-map("n", "<C-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer tab"})
+map("n", "t", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer tab" })
+map("n", "T", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer tab"})
 map("n", "<C-n>", "<cmd>NvimTreeToggle<cr>", {desc = "Open file tree"})
 map("n", "<C-d>", "<cmd>bdelete<cr>", {desc = "Delete current buffer"})
 map({"n", "i", "v"}, "<C-t>", "<cmd>ToggleTerm<cr>", {desc = "Open terminal"})

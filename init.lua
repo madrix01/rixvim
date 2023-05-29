@@ -7,10 +7,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+
+-- Imports
 require('packages')
 require('keybindings')
 require('config')
 require('plugins.catppuccin')
+
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
 --
@@ -32,14 +35,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = vim.fn.expand '$MYVIMRC',
 })
 
--- [[ Setting options ]]
--- See `:help vim.o`
-
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- [[ Highlight on rank ]]
--- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
@@ -54,7 +49,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'palenight',
+        theme = 'horizon',
         component_separators = '|',
         section_separators = '',
     },
@@ -63,8 +58,6 @@ require('lualine').setup {
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
     char = '┊',
     show_trailing_blankline_indent = false,
@@ -104,6 +97,9 @@ require('bufferline').setup {}
 -- setup autopairs
 
 require("nvim-autopairs").setup {}
+
+-- setup transparent nvim
+require("transparent").setup {}
 
 -- setup go
 require("go").setup()
@@ -145,9 +141,12 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'markdown_inline' },
 
-    highlight = { enable = true },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
     indent = { enable = true, disable = { 'python' } },
     incremental_selection = {
         enable = true,
@@ -266,13 +265,6 @@ local servers = {
     -- pyright = {},
     -- rust_analyzer = {},
     -- tsserver = {},
-
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    },
 }
 
 -- Setup alpha configuration
