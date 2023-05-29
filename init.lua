@@ -7,10 +7,13 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   vim.cmd [[packadd packer.nvim]]
 end
 
+
+-- Imports
 require('packages')
 require('keybindings')
 require('config')
 require('plugins.catppuccin')
+
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
 --
@@ -32,14 +35,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     pattern = vim.fn.expand '$MYVIMRC',
 })
 
--- [[ Setting options ]]
--- See `:help vim.o`
-
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- [[ Highlight on rank ]]
--- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
@@ -54,7 +49,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = 'palenight',
+        theme = 'horizon',
         component_separators = '|',
         section_separators = '',
     },
@@ -63,8 +58,6 @@ require('lualine').setup {
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
 require('indent_blankline').setup {
     char = '┊',
     show_trailing_blankline_indent = false,
