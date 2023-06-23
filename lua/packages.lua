@@ -102,7 +102,19 @@ require('packer').startup(function(use)
   use { 'tpope/vim-dadbod' }
   use { 'kristijanhusak/vim-dadbod-ui' }
 
+  -- Diff viewer
+  use { "sindrets/diffview.nvim" }
+
+  -- New theme 
+  use {'nyoom-engineering/oxocarbon.nvim'}
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
+
+  -- Trouble nvim 
+  use {
+    'folke/trouble.nvim',
+    requires = {"nvim-tree/nvim-web-devicons"}
+  }
+
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
     plugins(use)
