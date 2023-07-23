@@ -86,14 +86,11 @@ require('bufferline').setup {}
 
 require("nvim-autopairs").setup {}
 
--- setup transparent nvim
-
 -- setup go
 require("go").setup()
 require("go.format").goimport() -- goimport + gofmt
 
 -- Run gofmt + goimport on save
-
 local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.go",
@@ -269,6 +266,7 @@ dashboard.section.header.val = {
     "                                          ",
 }
 
+
 alpha.setup(dashboard.opts)
 
 -- Setup neovim lua configuration
@@ -299,7 +297,7 @@ mason_lspconfig.setup_handlers {
 }
 
 -- Turn on lsp status information
-require('fidget').setup()
+-- require('fidget').setup()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'

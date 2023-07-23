@@ -9,9 +9,6 @@ require('packer').startup(function(use)
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
-
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
     },
@@ -85,7 +82,7 @@ require('packer').startup(function(use)
   use {
     'akinsho/toggleterm.nvim',
     tag = '*',
-    config = function() require("toggleterm").setup() end
+    config = function () require("toggleterm").setup() end
   }
 
   -- transparent nvim 
@@ -114,6 +111,31 @@ require('packer').startup(function(use)
     'folke/trouble.nvim',
     requires = {"nvim-tree/nvim-web-devicons"}
   }
+
+  -- 
+  use {
+    'folke/flash.nvim',
+  }
+
+  -- 
+  use {
+    'Shatur/neovim-ayu'
+  }
+
+  use { "bluz71/vim-moonfly-colors", as = "moonfly" }
+
+  -- Which keys
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup()
+    end
+  }
+
+  -- Float term
+  use {'voldikss/vim-floaterm'}
 
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
