@@ -58,3 +58,4 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.linespace = 4
 -- 
+vim.cmd([[colorscheme catppuccin-mocha]])

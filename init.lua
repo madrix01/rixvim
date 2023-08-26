@@ -1,18 +1,23 @@
 -- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
 
 -- Imports
 require('packages')
 require('keybindings')
 require('config')
-require('plugins.catppuccin')
+-- require('plugins.catppuccin')
 require('neovide')
 
 -- Automatically source and re-compile packer whenever you save this init.lua
@@ -195,13 +200,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+  if client.server_capabilities.documentSymbolProvider then
+  end
+
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -281,6 +290,7 @@ require('mason').setup()
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
+
 
 mason_lspconfig.setup {
     ensure_installed = vim.tbl_keys(servers),

@@ -1,10 +1,8 @@
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+require('lazy').setup{
 
-  use { -- LSP Configuration & Plugins
+  { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
@@ -12,134 +10,80 @@ require('packer').startup(function(use)
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
     },
-  }
+  },
 
-  use { -- Autocompletion
+  { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  },
 
-  use { -- Highlight, edit, and navigate code
+  { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects"
+    }
+  },
 
   -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
-  -- themes
-  use {"catppuccin/nvim", as="catppuccin"}
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  {"catppuccin/nvim", as="catppuccin"},
+  'nvim-lualine/lualine.nvim', -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+--   -- Fuzzy Finder (files, lsp, etc)
+  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+--   -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
 
-  -- Bufferline
-  use {'akinsho/bufferline.nvim', tag="v2.*", requires = 'nvim-tree/nvim-web-devicons'}
+--   -- Bufferline
+  {'akinsho/bufferline.nvim', tag="v2.*", dependencies = 'nvim-tree/nvim-web-devicons'},
   
-  -- startup page
-  use {
+  {
     'goolord/alpha-nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function ()
     require'alpha'.setup(require'alpha.themes.startify'.config)
       end
-    }
+  },
 
-  use {
+  {
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
-  }
+  },
 
-  -- setup for go
-  use 'ray-x/go.nvim'
+  'ray-x/go.nvim',
 
-  -- nvim tree
-  use {
+  {
     'nvim-tree/nvim-tree.lua',
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
     config = function () require("nvim-tree").setup{} end
-  }
-
-  -- nvim terminal
-  use {
-    'akinsho/toggleterm.nvim',
-    tag = '*',
-    config = function () require("toggleterm").setup() end
-  }
-
-  -- transparent nvim 
-  use {
-    'xiyaowong/transparent.nvim',
-  }
-
-  -- kanagawa theme
-  use {
-    'rebelot/kanagawa.nvim',
-  }
-
-  -- Database viewer
-  use { 'tpope/vim-dadbod' }
-  use { 'kristijanhusak/vim-dadbod-ui' }
+  },
 
   -- Diff viewer
-  use { "sindrets/diffview.nvim" }
+  { "sindrets/diffview.nvim" },
 
-  -- New theme 
-  use {'nyoom-engineering/oxocarbon.nvim'}
-  -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
+--   -- New theme 
+--   use {'nyoom-engineering/oxocarbon.nvim'}
+--   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
 
   -- Trouble nvim 
-  use {
+  {
     'folke/trouble.nvim',
-    requires = {"nvim-tree/nvim-web-devicons"}
-  }
+    dependencies = {"nvim-tree/nvim-web-devicons"}
+  },
 
-  -- 
-  use {
+  {
     'folke/flash.nvim',
-  }
-
-  -- 
-  use {
-    'Shatur/neovim-ayu'
-  }
-
-  use { "bluz71/vim-moonfly-colors", as = "moonfly" }
-
-  -- Which keys
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require("which-key").setup()
-    end
-  }
-
-  -- Float term
-  use {'voldikss/vim-floaterm'}
-
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
-
-end)
+  },
+}
