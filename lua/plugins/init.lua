@@ -1,4 +1,4 @@
-require('lazy').setup{
+return {
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -11,6 +11,8 @@ require('lazy').setup{
       'folke/neodev.nvim',
     },
   },
+
+  'LazyVim/LazyVim',
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -30,12 +32,88 @@ require('lazy').setup{
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-  'lewis6991/gitsigns.nvim',
+  {
+    'lewis6991/gitsigns.nvim',
+    opts =  {
+      signs = {
+          add = { text = "▎" },
+          change = { text = '~' },
+          delete = { text = '_' },
+          topdelete = { text = '‾' },
+          changedelete = { text = '~' },
+          untracked = { text = "▎" },
+      },
+    }
+  },
 
   {"catppuccin/nvim", as="catppuccin"},
-  'nvim-lualine/lualine.nvim', -- Fancier statusline
-  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+  -- {
+  --   'nvim-lualine/lualine.nvim', -- Fancier statusline
+  --   opts = {
+  --     icons_enabled = true,
+  --     theme = 'horizon',
+  --     component_separators = '|',
+  --     section_separators = '',
+  --   },
+  -- },
+
+  {
+    'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+    opts = {
+      char = '│',
+      filetype_exclude = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
+      },
+      show_trailing_blankline_indent = false,
+      show_current_context = false,
+    }
+  },
+  {
+    "echasnovski/mini.indentscope",
+    version = false, -- wait till new 0.7.0 release to put it back on semver
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      symbol = "│",
+      options = { try_as_border = true },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "help",
+          "alpha",
+          "dashboard",
+          "neo-tree",
+          "Trouble",
+          "lazy",
+          "mason",
+          "notify",
+          "toggleterm",
+          "lazyterm",
+        },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+  },
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = {
+      options = {
+
+      }
+    },
+  },
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
 --   -- Fuzzy Finder (files, lsp, etc)
@@ -45,7 +123,7 @@ require('lazy').setup{
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
 
 --   -- Bufferline
-  {'akinsho/bufferline.nvim', tag="v2.*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  {'akinsho/bufferline.nvim', tag="v2.*", dependencies = 'nvim-tree/nvim-web-devicons', opts = {}},
   
   {
     'goolord/alpha-nvim',
@@ -56,8 +134,9 @@ require('lazy').setup{
   },
 
   {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
   },
 
   'ray-x/go.nvim',
@@ -84,6 +163,7 @@ require('lazy').setup{
   },
 
   {
-    'folke/flash.nvim',
-  },
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {}
+  }
 }
