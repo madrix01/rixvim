@@ -1,17 +1,4 @@
 return {
-
-  { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
-
-      -- Additional lua configuration, makes nvim stuff amazing
-      'folke/neodev.nvim',
-    },
-  },
-
   'LazyVim/LazyVim',
 
   { -- Autocompletion
@@ -34,19 +21,19 @@ return {
   'tpope/vim-rhubarb',
   {
     'lewis6991/gitsigns.nvim',
-    opts =  {
+    opts = {
       signs = {
-          add = { text = "▎" },
-          change = { text = '~' },
-          delete = { text = '_' },
-          topdelete = { text = '‾' },
-          changedelete = { text = '~' },
-          untracked = { text = "▎" },
+        add = { text = "▎" },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = "▎" },
       },
     }
   },
 
-  {"catppuccin/nvim", as="catppuccin"},
+  { "catppuccin/nvim",                          as = "catppuccin" },
   -- {
   --   'nvim-lualine/lualine.nvim', -- Fancier statusline
   --   opts = {
@@ -116,21 +103,20 @@ return {
   },
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
---   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+  --   -- Fuzzy Finder (files, lsp, etc)
+  { 'nvim-telescope/telescope.nvim',            branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
 
---   -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
+  --   -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',   cond = vim.fn.executable 'make' == 1 },
 
---   -- Bufferline
-  {'akinsho/bufferline.nvim', tag="v2.*", dependencies = 'nvim-tree/nvim-web-devicons', opts = {}},
-  
+  --   -- Bufferline
+  { 'akinsho/bufferline.nvim',                  tag = "v2.*",     dependencies = 'nvim-tree/nvim-web-devicons', opts = {} },
   {
     'goolord/alpha-nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function ()
-    require'alpha'.setup(require'alpha.themes.startify'.config)
-      end
+    config = function()
+      require 'alpha'.setup(require 'alpha.themes.startify'.config)
+    end
   },
 
   {
@@ -146,20 +132,20 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    config = function () require("nvim-tree").setup{} end
+    config = function() require("nvim-tree").setup {} end
   },
 
   -- Diff viewer
   { "sindrets/diffview.nvim" },
 
---   -- New theme 
---   use {'nyoom-engineering/oxocarbon.nvim'}
---   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
+  --   -- New theme
+  --   use {'nyoom-engineering/oxocarbon.nvim'}
+  --   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
 
-  -- Trouble nvim 
+  -- Trouble nvim
   {
     'folke/trouble.nvim',
-    dependencies = {"nvim-tree/nvim-web-devicons"}
+    dependencies = { "nvim-tree/nvim-web-devicons" }
   },
 
   {
