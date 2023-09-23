@@ -9,7 +9,6 @@ return {
       options = {
         theme = "auto",
         globalstatus = true,
-        disabled_filetypes = { statusline = { "dashboard", "alpha" } },
       },
       sections = {
         lualine_a = { "mode" },
