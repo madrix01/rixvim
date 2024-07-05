@@ -27,7 +27,7 @@ return {
         additional_vim_regex_highlighting = false,
     },
     indent = { enable = true, disable = { 'python' } },
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vim', 'markdown_inline' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'javascript', 'vim', 'markdown_inline' },
     incremental_selection = {
       enable = true,
       keymaps = {

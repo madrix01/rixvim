@@ -1,5 +1,6 @@
 local M = {
   "ray-x/go.nvim",
+  enable = false,
   dependencies = {
     "ray-x/guihua.lua",
   },
@@ -14,7 +15,7 @@ local M = {
       go = "go",                -- go command, can be go[default] or go1.18beta1
       goimport = "gopls",       -- goimport command, can be gopls[default] or goimport
       fillstruct = "gopls",     -- can be nil (use fillstruct, slower) and gopls
-      gofmt = "gofumpt",        -- gofmt cmd,
+      gofmt = "gofmt",        -- gofmt cmd,
       max_line_len = 120,       -- max line length in goline format
       tag_transform = false,    -- tag_transfer  check gomodifytags for details
       test_template = "",       -- default to testify if not set; g:go_nvim_tests_template  check gotests for details
@@ -26,8 +27,15 @@ local M = {
       -- false: do nothing
       -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
       --   lsp_cfg = {settings={gopls={matcher='CaseInsensitive', ['local'] = 'your_local_module_path', gofumpt = true }}}
-      lsp_gofumpt = false, -- true: set default gofmt in gopls format to gofumpt
-      lsp_diag_underline = false,
+      lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+      diagnostic = {  -- set diagnostic to false to disable vim.diagnostic setup
+        hdlr = false, -- hook lsp diag handler and send diag to quickfix
+        underline = false,
+        -- virtual text setup
+        virtual_text = { spacing = 0, prefix = '■' },
+        signs = true,
+        update_in_insert = true,
+      },
       lsp_on_attach = function(client, bufnr)
         -- attach my LSP configs keybindings
         require("core.plugins.lsp.keys").on_attach(client, bufnr)
@@ -80,11 +88,7 @@ local M = {
       -- if lsp_on_attach is a function: use this function as on_attach function for gopls
       lsp_codelens = true,                                                  -- set to false to disable codelens, true by default
       lsp_keymaps = false,                                                  -- set to false to disable gopls/lsp keymap
-      lsp_diag_hdlr = true,                                                 -- hook lsp diag handler
-      lsp_diag_virtual_text = { space = 0, prefix = icons.arrows.Diamond }, -- virtual text setup
-      lsp_diag_signs = true,
-      lsp_diag_update_in_insert = true,
-      lsp_document_formatting = false,
+      lsp_document_formatting = true,
       -- set to true: use gopls to format
       -- false if you want to use other formatter tool(e.g. efm, nulls)
       lsp_inlay_hints = {
@@ -130,6 +134,14 @@ local M = {
       run_in_floaterm = false,  -- set to true to run in float window.
       -- float term recommended if you use richgo/ginkgo with terminal color
       luasnip = true,
+    })
+    local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*.go",
+      callback = function()
+        require("go.format").goimport()
+      end,
+      group = format_sync_grp,
     })
   end,
 }

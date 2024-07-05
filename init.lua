@@ -15,7 +15,12 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Imports
-require('lazy').setup('plugins')
+-- require('lazy').setup('plugins')
+require('lazy').setup({
+  spec = {
+    { import = "plugins" },
+  }
+})
 require('keybindings')
 require('config')
 require('neovide')
@@ -32,7 +37,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
+-- require("aerial").setup({
+--   backends = {"treesitter", "lsp"}
+-- })
+-- require("telescope").load_extension("aerial")
+require('telescope').setup({
   defaults = {
     mappings = {
       i = {
@@ -41,7 +50,7 @@ require('telescope').setup {
       },
     },
   },
-}
+})
 
 
 -- setup go
@@ -49,14 +58,13 @@ require('telescope').setup {
 -- require("go.format").goimport() -- goimport + gofmt
 
 -- Run gofmt + goimport on save
--- local format_sync_grp = vim.api.nvim_create_augroup("GoOnSav", {})
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   pattern = "*.go",
---   callback = function()
---     require('go.format').goimport()
---   end,
---   group = format_sync_grp,
--- })
+-- local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
 
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -118,6 +126,7 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
+  svelte = {},
 }
 
 

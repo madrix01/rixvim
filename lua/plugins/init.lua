@@ -34,16 +34,6 @@ return {
   },
 
   { "catppuccin/nvim", as = "catppuccin" },
-  -- {
-  --   'nvim-lualine/lualine.nvim', -- Fancier statusline
-  --   opts = {
-  --     icons_enabled = true,
-  --     theme = 'horizon',
-  --     component_separators = '|',
-  --     section_separators = '',
-  --   },
-  -- },
-  --
   {
     "loctvl842/monokai-pro.nvim",
     config = function()
@@ -60,24 +50,44 @@ return {
   },
 
   {
-    "lukas-reineke/indent-blankline.nvim", -- Add indentation guides even on blank lines
+    "nyoom-engineering/oxocarbon.nvim",
+  },
+
+  { "stevedylandev/flexoki-nvim", name = "flexoki" },
+
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim", -- Add indentation guides even on blank lines
+  --   opts = {
+  --     indent = {
+  --       char = "│",
+  --       tab_char = "│",
+  --     },
+  --     scope = { enabled = false },
+  --     exclude = {
+  --       filetypes = {
+  --         "help",
+  --         "alpha",
+  --         "dashboard",
+  --         "neo-tree",
+  --         "Trouble",
+  --         "trouble",
+  --         "lazy",
+  --         "mason",
+  --         "notify",
+  --         "toggleterm",
+  --         "lazyterm",
+  --       },
+  --     },
+  --   },
+  -- },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",
     opts = {
-      char = "│",
-      filetype_exclude = {
-        "help",
-        "alpha",
-        "dashboard",
-        "neo-tree",
-        "Trouble",
-        "lazy",
-        "mason",
-        "notify",
-        "toggleterm",
-        "lazyterm",
+      indent = {
+        char = "│",
+        tab_char = "│",
       },
-      show_trailing_blankline_indent = false,
-      show_current_context = false,
-    },
+      scope = { enabled = false },
+    }
   },
   {
     "echasnovski/mini.indentscope",
@@ -117,7 +127,14 @@ return {
   "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
   --   -- Fuzzy Finder (files, lsp, etc)
-  { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = { "stevearc/aerial.nvim"},
+    config = function ()
+      require("telescope").load_extension("aerial")
+    end
+  },
 
   --   -- Fuzzy Finder Algorithm which dependencies local dependencies to be built. Only load if `make` is available
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = vim.fn.executable("make") == 1 },
@@ -158,18 +175,52 @@ return {
   -- Diff viewer
   { "sindrets/diffview.nvim" },
 
-  --   -- New theme
-  --   use {'nyoom-engineering/oxocarbon.nvim'}
-  --   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-
   -- Trouble nvim
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  {
+      "sveltejs/language-tools",
+      config = function()
+        require('lspconfig').svelte.setup({})
+      end,
+  },
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --   opts = {},
-  -- },
+  {
+    "stevearc/aerial.nvim",
+    opts = function()
+      local opts = {
+        attach_mode = "global",
+        backends = {
+          ['_'] = {'lsp', 'treesitter'}
+        },
+        show_guides = true,
+        layout = {
+          resize_to_content = false,
+          win_opts = {
+            winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
+            signcolumn = "yes",
+            statuscolumn = " ",
+          },
+        },
+        -- stylua: ignore
+        guides = {
+          mid_item   = "├╴",
+          last_item  = "└╴",
+          nested_top = "│ ",
+          whitespace = "  ",
+        },
+        lazy = false
+      }
+      return opts
+    end,
+    keys = {
+      { "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+    },
+  },
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+  }
 }
