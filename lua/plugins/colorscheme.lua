@@ -4,5 +4,6 @@ return {
   {"rebelot/kanagawa.nvim"},
   {"HoNamDuong/hybrid.nvim"},
   {"ribru17/bamboo.nvim"},
-  {"olivercederborg/poimandres.nvim"}
+  {"olivercederborg/poimandres.nvim"},
+  {"projekt0n/github-nvim-theme"},
 }
