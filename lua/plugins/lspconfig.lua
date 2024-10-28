@@ -91,7 +91,7 @@ return {
   },
   ---@param opts PluginLspOpts
   config = function(_, opts)
-    local Util = require("lazyvim.util")
+    local Util = require("lazy.util")
 
     if Util.has("neoconf.nvim") then
       local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]

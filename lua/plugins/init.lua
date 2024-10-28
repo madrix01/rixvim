@@ -1,5 +1,5 @@
 return {
-  "LazyVim/LazyVim",
+  "folke/lazy.nvim",
 
   { -- Autocompletion
     "hrsh7th/nvim-cmp",
@@ -219,8 +219,8 @@ return {
       { "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
     },
   },
-  {
-    'stevearc/conform.nvim',
-    opts = {},
-  }
+  -- {
+  --   'stevearc/conform.nvim',
+  --   opts = {},
+  -- }
 }
